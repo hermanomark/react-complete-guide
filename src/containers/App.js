@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
+import WithClass from '../hoc/WithClass';
 
 class App extends PureComponent {
   constructor(props) {
@@ -97,16 +98,16 @@ class App extends PureComponent {
     }
 
     return (
-        <div className={classes.App}>
-        <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
-          <Cockpit 
-            appTitle={this.props.title}
-            persons={this.state.persons}
-            showPersons={this.state.showPersons}
-            clicked={this.togglePersonsHandler}
-          />
+        <WithClass classes={classes.App}>
+          <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
+            <Cockpit 
+              appTitle={this.props.title}
+              persons={this.state.persons}
+              showPersons={this.state.showPersons}
+              clicked={this.togglePersonsHandler}
+            />
           {persons}
-        </div>
+        </WithClass>
       );
 
     //Understanding JSX
