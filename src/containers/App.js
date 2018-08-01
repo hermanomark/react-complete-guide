@@ -1,18 +1,55 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 
-class App extends Component {
-  state = {
-    persons: [
-      {id: 'wq123', name: "Mark", age: 22}, 
-      {id: '213dsa', name: "Mic", age: 23}, 
-      {id: '213dad', name: "Jmik", age: 30}
-    ],
-    otherState: "some value",
-    showPersons: false
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] Inside a constructor', props);
+    this.state = {
+      persons: [
+        {id: 'wq123', name: "Mark", age: 22}, 
+        {id: '213dsa', name: "Mic", age: 23}, 
+        {id: '213dad', name: "Jmik", age: 30}
+      ],
+      otherState: "some value",
+      showPersons: false
+    }
   }
+
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount()');
+  }
+
+  componentDidMount(){
+    console.log('[App.js] Inside componentDidMount()');
+  }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log('[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState);
+  //   return nextState.persons !== this.state.persons || 
+  //     nextState.showPersons !== this.state.showPersons;
+  //   // return true;
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('[UPDATE App.js] Inside componentDidUpdate');
+  }
+
+  // state = {
+  //   persons: [
+  //     {id: 'wq123', name: "Mark", age: 22}, 
+  //     {id: '213dsa', name: "Mic", age: 23}, 
+  //     {id: '213dad', name: "Jmik", age: 30}
+  //   ],
+  //   otherState: "some value",
+  //   showPersons: false
+  // }
 
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice , this line of code works just exactly the same as line below
@@ -46,7 +83,7 @@ class App extends Component {
   }
 
   render() {
-
+    console.log('[App.js] Inside render()');
     let persons = null;
 
     if (this.state.showPersons) {
@@ -61,6 +98,7 @@ class App extends Component {
 
     return (
         <div className={classes.App}>
+        <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
           <Cockpit 
             appTitle={this.props.title}
             persons={this.state.persons}
